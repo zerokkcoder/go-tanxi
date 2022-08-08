@@ -5,6 +5,7 @@ import (
 	"fmt"
 	route "go-tanxi/pkg/Route"
 	"go-tanxi/pkg/logger"
+	"go-tanxi/pkg/types"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -103,18 +104,13 @@ func articlesShowHandler(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.New("show.gohtml").
 			Funcs(template.FuncMap{
 				"RouteName2URL": route.Name2URL,
-				"Int64ToString": Int64ToString,
+				"Int64ToString": types.Int64ToString,
 			}).
 			ParseFiles("resources/views/articles/show.gohtml")
 		logger.LogError(err)
 		err = tmpl.Execute(w, article)
 		logger.LogError(err)
 	}
-}
-
-// Int64ToString 将 int64 转换为 string
-func Int64ToString(num int64) string {
-	return strconv.FormatInt(num, 10)
 }
 
 func getArticleByID(id string) (Article, error) {
