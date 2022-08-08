@@ -1,7 +1,6 @@
 package route
 
 import (
-	"go-tanxi/pkg/logger"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -9,10 +8,10 @@ import (
 
 // RouteName2URL 通过路由名称来获取 URL
 func Name2URL(routeName string, pairs ...string) string {
-	var router *mux.Router
-	url, err := router.Get(routeName).URL(pairs...)
+	var route *mux.Router
+	url, err := route.Get(routeName).URL(pairs...)
 	if err != nil {
-		logger.LogError(err)
+		// checkError(err)
 		return ""
 	}
 

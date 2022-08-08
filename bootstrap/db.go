@@ -7,6 +7,7 @@ import (
 
 // SetupDB 初始化数据库和 ORM
 func SetupDB() {
+
 	// 建立数据库连接池
 	db := model.ConnectDB()
 

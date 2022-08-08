@@ -46,7 +46,7 @@ func getArticleByID(id string) (Article, error) {
 func articlesEditHandler(w http.ResponseWriter, r *http.Request) {
 
 	// 1. 获取 URL 参数
-	id := GetRouteVariable("id", r)
+	id := getRouteVariable("id", r)
 
 	// 2. 读取对应的文章数据
 	article, err := getArticleByID(id)
@@ -82,7 +82,7 @@ func articlesEditHandler(w http.ResponseWriter, r *http.Request) {
 
 func articlesUpdateHandler(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取 URL 参数
-	id := GetRouteVariable("id", r)
+	id := getRouteVariable("id", r)
 
 	// 2. 读取对应的文章数据
 	_, err := getArticleByID(id)
@@ -318,7 +318,7 @@ func removeTrailingSlash(next http.Handler) http.Handler {
 func articlesDeleteHandler(w http.ResponseWriter, r *http.Request) {
 
 	// 1. 获取 URL 参数
-	id := GetRouteVariable("id", r)
+	id := getRouteVariable("id", r)
 
 	// 2. 读取对应的文章数据
 	article, err := getArticleByID(id)
@@ -376,7 +376,7 @@ func (a Article) Delete() (rowsAffected int64, err error) {
 	return 0, nil
 }
 
-func GetRouteVariable(parameterName string, r *http.Request) string {
+func getRouteVariable(parameterName string, r *http.Request) string {
 	vars := mux.Vars(r)
 	return vars[parameterName]
 }
