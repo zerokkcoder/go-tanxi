@@ -9,7 +9,9 @@ air:
 doc:
 	godoc -http=:6060
 
+# -v 显示详情
+# -count=1 清楚缓存
 test:
-	go test ./tests -v
+	go test ./tests -v -count=1
 
 .PHONY: run air doc
