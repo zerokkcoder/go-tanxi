@@ -13,7 +13,7 @@ func main() {
 	// gin.Context，封装了request和response
 	r.GET("/", func(c *gin.Context) {
 		c.Header("Content-type", "text/html;charset=utf-8")
-		c.String(http.StatusOK, "<h1>Hello, 这里是 goblog</h1>")
+		c.String(http.StatusOK, "<h1>Helloooooo, 这里是 goblog</h1>")
 	})
 	r.GET("/about", func(c *gin.Context) {
 		c.Header("Content-type", "text/html;charset=utf-8")
