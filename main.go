@@ -11,6 +11,6 @@ func main() {
 	bootstrap.SetupDB()
 	router := bootstrap.SetupRoute()
 
-	err := http.ListenAndServe(":3030", middlewares.RemoveTrailingSlash(router))
+	err := http.ListenAndServe(":3040", middlewares.RemoveTrailingSlash(router))
 	logger.LogError(err)
 }
