@@ -5,7 +5,6 @@ import (
 	"go-tanxi/app/models/article"
 	"go-tanxi/pkg/logger"
 	"go-tanxi/pkg/route"
-	"go-tanxi/pkg/types"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -85,8 +84,7 @@ func (*ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
 
 		tmpl, err := template.New("show.gohtml").
 			Funcs(template.FuncMap{
-				"RouteName2URL":  route.Name2URL,
-				"Uint64ToString": types.Uint64ToString,
+				"RouteName2URL": route.Name2URL,
 			}).
 			ParseFiles(newFiles...)
 		logger.LogError(err)
