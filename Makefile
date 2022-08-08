@@ -9,4 +9,7 @@ air:
 doc:
 	godoc -http=:6060
 
+test:
+	go test ./tests -v
+
 .PHONY: run air doc
