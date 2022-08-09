@@ -3,10 +3,10 @@ package view
 import (
 	"go-tanxi/pkg/logger"
 	"go-tanxi/pkg/route"
+	"html/template"
 	"io"
 	"path/filepath"
 	"strings"
-	"text/template"
 )
 
 // D 是 map[string]interface{} 的简写
