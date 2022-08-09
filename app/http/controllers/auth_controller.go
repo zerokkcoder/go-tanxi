@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go-tanxi/app/models/user"
 	"go-tanxi/app/requests"
+	"go-tanxi/pkg/auth"
 	"go-tanxi/pkg/route"
 	"go-tanxi/pkg/view"
 	"net/http"
@@ -58,4 +59,20 @@ func (*AuthController) Login(w http.ResponseWriter, r *http.Request) {
 
 // Login 处理登录逻辑
 func (*AuthController) DoLogin(w http.ResponseWriter, r *http.Request) {
+	// 1. 初始化表单数据
+	email := r.PostFormValue("email")
+	password := r.PostFormValue("password")
+
+	// 2. 尝试登录
+	if err := auth.Attempt(email, password); err == nil {
+		// 登录成功
+		http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusFound)
+	} else {
+		// 3. 失败，显示错误提示
+		view.RenderSimple(w, view.D{
+			"Error":    err.Error(),
+			"Email":    email,
+			"Password": password,
+		}, "auth.login")
+	}
 }
