@@ -76,3 +76,9 @@ func (*AuthController) DoLogin(w http.ResponseWriter, r *http.Request) {
 		}, "auth.login")
 	}
 }
+
+// Logout 处理登录逻辑
+func (*AuthController) Logout(w http.ResponseWriter, r *http.Request) {
+	auth.Logout()
+	http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusFound)
+}

@@ -24,7 +24,9 @@
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "about" }}">关于</a></li>
           {{ if .isLogined }}
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.create" }}">开始写作</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">退出</a></li>
+          <form action="{{ RouteName2URL "auth.logout" }}" method="POST" onsubmit="return confirm('您确定要退出吗？')">
+            <button class="btn btn-light btn-sm" type="submit" name="button">退出</button>
+          </form>
           {{ else }}
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.register" }}">注册</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.login" }}">登录</a></li>
