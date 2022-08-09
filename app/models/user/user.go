@@ -3,6 +3,7 @@ package user
 import (
 	"go-tanxi/app/models"
 	"go-tanxi/pkg/model"
+	"go-tanxi/pkg/password"
 	"go-tanxi/pkg/types"
 )
 
@@ -39,6 +40,6 @@ func GetByEmail(email string) (User, error) {
 }
 
 // ComparePassword 对比密码是否匹配
-func (user *User) ComparePassword(password string) bool {
-	return user.Password == password
+func (user *User) ComparePassword(_password string) bool {
+	return password.CheckHash(_password, user.Password)
 }

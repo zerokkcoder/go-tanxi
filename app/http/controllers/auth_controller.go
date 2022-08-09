@@ -44,6 +44,8 @@ func (*AuthController) DoRegister(w http.ResponseWriter, r *http.Request) {
 	} else {
 		_user.Create()
 		if _user.ID > 0 {
+			// 登录用户并跳转到博客首页
+			auth.Login(_user)
 			http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusFound)
 		} else {
 			w.WriteHeader(http.StatusInternalServerError)
