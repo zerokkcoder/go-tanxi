@@ -1,3 +1,56 @@
 body {
-    background-color: #F0F2F5;
+    background-color: #f3f8f1;
+}
+
+.simple-container {
+    padding: 0px;
+}
+
+.home-header {
+    width: 100%;
+    height: 160px;
+    background: url(../img/home_bg.jpg);
+    background-position: center;
+    position: relative;
+}
+
+.home-avatar {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    bottom: -48px;
+    left: 100px;
+    border-radius: 50%;
+}
+
+.home-container {
+    margin: 50px 100px;
+    color: #2b333e;
+}
+
+.home-container-header {
+    display: flex;
+    justify-content: left;
+}
+
+.home-container-header-slogan {
+    position: relative;
+    width: 30%;
+}
+
+.home-container-header-slogan span {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: #5e616d;
+    font-style: italic;
+}
+
+.home-container .card {
+    cursor: pointer;
+}
+
+.item-cover {
+    height: 120px;
+    object-fit: cover;
 }

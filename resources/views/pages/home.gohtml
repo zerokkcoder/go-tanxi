@@ -1,0 +1,44 @@
+{{define "title"}}
+主页
+{{end}}
+
+{{define "main"}}
+<div class="home-header">
+  <img class="home-avatar" src="/img/avatar.jpg" alt="">
+</div>
+<div class=".container home-container">
+  <div class="home-container-header">
+    <h1>Hahoo 的主页</h1>
+    <div class="home-container-header-slogan">
+      <span>“哈哈落到了地上拉萨”</span>
+    </div>
+  </div>
+  <hr>
+  <div class="row text-center">
+    <div class="col">
+      <div class="card" onclick="location.href='{{ RouteName2URL "articles.index" }}'">
+        <img src="/img/home_item_cover_1.jpg" class="card-img-top item-cover" alt="博客封面">
+        <div class="card-body">
+          <h5 class="card-title">我的博客</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <img src="/img/home_item_cover_2.jpg" class="card-img-top item-cover" alt="导航封面">
+        <div class="card-body">
+          <h5 class="card-title">网站导航</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" onclick="location.href='{{ RouteName2URL "about" }}'">
+        <img src="/img/home_item_cover_3.jpg" class="card-img-top item-cover" alt="关于封面">
+        <div class="card-body">
+          <h5 class="card-title">关于我</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
