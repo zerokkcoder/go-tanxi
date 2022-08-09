@@ -22,8 +22,13 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.index" }}">首页</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "about" }}">关于</a></li>
+          {{ if .isLogined }}
+          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.create" }}">开始写作</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">退出</a></li>
+          {{ else }}
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.register" }}">注册</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.login" }}">登录</a></li>
+          {{ end }}
         </ul>
       </div>
     </div>
