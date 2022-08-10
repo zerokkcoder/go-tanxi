@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"go-tanxi/app/models/article"
+	"go-tanxi/app/models/category"
 	"go-tanxi/app/models/user"
 	"go-tanxi/pkg/config"
 	"go-tanxi/pkg/model"
@@ -35,5 +36,6 @@ func migration(db *gorm.DB) {
 	db.AutoMigrate(
 		&user.User{},
 		&article.Article{},
+		&category.Category{},
 	)
 }
