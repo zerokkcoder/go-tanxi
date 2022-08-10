@@ -57,6 +57,9 @@ func (cc *CategoriesController) Show(w http.ResponseWriter, r *http.Request) {
 
 	// 2. 读取对应的文章数据
 	_category, err := category.Get(id)
+	if err != nil {
+		cc.ResponseForSQLError(w, err)
+	}
 
 	// 3. 获取结果集
 	articles, pagerData, err := article.GetByCategoryID(_category.GetStringID(), r, 2)
