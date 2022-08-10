@@ -14,6 +14,7 @@
 - [Bootstrap](https://github.com/twbs/bootstrap)
 - [thedevsaddam/govalidator](https://github.com/thedevsaddam/govalidator)
 - [crypto/bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt)
+- [spf13/viper](https://github.com/spf13/viper)
 
 ## 参考资料
 - [G01 Go实战：Web 入门](https://learnku.com/courses/go-basic/1.17)
