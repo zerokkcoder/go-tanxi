@@ -45,9 +45,9 @@ func RegisterWebRoutes(r *mux.Router) {
 	r.HandleFunc("/categories/{id:[0-9]+}", cc.Show).Methods("GET").Name("categories.show")
 
 	// 静态资源
-	r.PathPrefix("/css/").Handler(http.FileServer(http.Dir("./public")))
-	r.PathPrefix("/js/").Handler(http.FileServer(http.Dir("./public")))
-	r.PathPrefix("/img/").Handler(http.FileServer(http.Dir("./public")))
+	// r.PathPrefix("/css/").Handler(http.FileServer(http.Dir("./public")))
+	// r.PathPrefix("/js/").Handler(http.FileServer(http.Dir("./public")))
+	// r.PathPrefix("/img/").Handler(http.FileServer(http.Dir("./public")))
 
 	// --- 全局中间件 ---
 
