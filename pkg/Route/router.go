@@ -1,6 +1,8 @@
 package route
 
 import (
+	"go-tanxi/pkg/config"
+	"go-tanxi/pkg/logger"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -17,11 +19,11 @@ func SetRoute(r *mux.Router) {
 func Name2URL(routeName string, pairs ...string) string {
 	url, err := route.Get(routeName).URL(pairs...)
 	if err != nil {
-		// checkError(err)
+		logger.LogError(err)
 		return ""
 	}
 
-	return url.String()
+	return config.GetString("app.url") + url.String()
 }
 
 // GetRouteVariable 获取 URI 路由参数
