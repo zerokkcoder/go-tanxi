@@ -1,6 +1,7 @@
 package view
 
 import (
+	"go-tanxi/app/models/category"
 	"go-tanxi/app/models/user"
 	"go-tanxi/pkg/auth"
 	"go-tanxi/pkg/flash"
@@ -33,6 +34,7 @@ func RenderTemplate(w io.Writer, name string, data D, tplFiles ...string) {
 	data["loginUser"] = auth.User()
 	data["flash"] = flash.All()
 	data["Users"], _ = user.All()
+	data["Categories"], _ = category.All()
 
 	// 2. 生成模板文件
 	allFiles := getTemplateFiles(tplFiles...)
