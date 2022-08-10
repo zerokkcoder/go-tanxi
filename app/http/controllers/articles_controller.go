@@ -5,6 +5,7 @@ import (
 	"go-tanxi/app/models/article"
 	"go-tanxi/app/policies"
 	"go-tanxi/app/requests"
+	"go-tanxi/pkg/auth"
 	"go-tanxi/pkg/route"
 	"go-tanxi/pkg/view"
 	"net/http"
@@ -59,9 +60,11 @@ func (*ArticlesController) Create(w http.ResponseWriter, r *http.Request) {
 func (*ArticlesController) Store(w http.ResponseWriter, r *http.Request) {
 
 	// 1. 初始化数据
+	currentUser := auth.User()
 	_article := article.Article{
-		Title: r.PostFormValue("title"),
-		Body:  r.PostFormValue("body"),
+		Title:  r.PostFormValue("title"),
+		Body:   r.PostFormValue("body"),
+		UserID: currentUser.ID,
 	}
 
 	// 2. 表单验证
