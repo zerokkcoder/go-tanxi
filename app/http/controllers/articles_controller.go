@@ -5,29 +5,24 @@ import (
 	"go-tanxi/app/models/article"
 	"go-tanxi/app/policies"
 	"go-tanxi/app/requests"
-	"go-tanxi/pkg/flash"
-	"go-tanxi/pkg/logger"
 	"go-tanxi/pkg/route"
 	"go-tanxi/pkg/view"
 	"net/http"
-
-	"gorm.io/gorm"
 )
 
 // ArticlesController 处理文章相关页面
 type ArticlesController struct {
+	BaseController
 }
 
 // Index 文章列表页
-func (*ArticlesController) Index(w http.ResponseWriter, r *http.Request) {
+func (ac *ArticlesController) Index(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取结果集
 	articles, err := article.GetAll()
 
 	if err != nil {
 		// 数据库错误
-		logger.LogError(err)
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, "500 服务器内部错误")
+		ac.ResponseForSQLError(w, err)
 	} else {
 		view.Render(w, view.D{
 			"Articles": articles,
@@ -36,7 +31,7 @@ func (*ArticlesController) Index(w http.ResponseWriter, r *http.Request) {
 }
 
 // Show 文章详情页面
-func (*ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
+func (ac *ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取 URL 参数
 	id := route.GetRouteVariable("id", r)
 
@@ -45,16 +40,7 @@ func (*ArticlesController) Show(w http.ResponseWriter, r *http.Request) {
 
 	// 3. 如果出现错误
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// 3.1 数据未找到
-			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprint(w, "404 文章未找到")
-		} else {
-			// 3.2 数据库错误
-			logger.LogError(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(w, "500 服务器内部错误")
-		}
+		ac.ResponseForSQLError(w, err)
 	} else {
 		// 4. 读取成功，显示文章
 		view.Render(w, view.D{
@@ -100,7 +86,7 @@ func (*ArticlesController) Store(w http.ResponseWriter, r *http.Request) {
 }
 
 // Edit 文章更新页面
-func (*ArticlesController) Edit(w http.ResponseWriter, r *http.Request) {
+func (ac *ArticlesController) Edit(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取 URL 参数
 	id := route.GetRouteVariable("id", r)
 
@@ -109,21 +95,11 @@ func (*ArticlesController) Edit(w http.ResponseWriter, r *http.Request) {
 
 	// 3. 如果出现错误
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// 3.1 数据未找到
-			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprint(w, "404 文章未找到")
-		} else {
-			// 3.2 数据库错误
-			logger.LogError(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(w, "500 服务器内部错误")
-		}
+		ac.ResponseForSQLError(w, err)
 	} else {
 		// 检查权限
 		if !policies.CanModifyArticle(_article) {
-			flash.Warning("未授权操作！")
-			http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusFound)
+			ac.ResponseForUnauthorized(w, r)
 		} else {
 			// 4. 读取成功，显示编辑文章表单
 			view.Render(w, view.D{
@@ -135,7 +111,7 @@ func (*ArticlesController) Edit(w http.ResponseWriter, r *http.Request) {
 }
 
 // Update 更新文章
-func (*ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
+func (ac *ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取 URL 参数
 	id := route.GetRouteVariable("id", r)
 
@@ -144,22 +120,12 @@ func (*ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
 
 	// 3. 如果出现错误
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// 3.1 数据未找到
-			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprint(w, "404 文章未找到")
-		} else {
-			// 3.2 数据库错误
-			logger.LogError(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(w, "500 服务器内部错误")
-		}
+		ac.ResponseForSQLError(w, err)
 	} else {
 		// 4. 未出现错误
 		// 检查权限
 		if !policies.CanModifyArticle(_article) {
-			flash.Warning("未授权操作！")
-			http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusForbidden)
+			ac.ResponseForUnauthorized(w, r)
 		} else {
 			// 4.1 表单验证
 			_article.Title = r.PostFormValue("title")
@@ -195,7 +161,7 @@ func (*ArticlesController) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete 更新文章
-func (*ArticlesController) Delete(w http.ResponseWriter, r *http.Request) {
+func (ac *ArticlesController) Delete(w http.ResponseWriter, r *http.Request) {
 	// 1. 获取 URL 参数
 	id := route.GetRouteVariable("id", r)
 
@@ -204,21 +170,11 @@ func (*ArticlesController) Delete(w http.ResponseWriter, r *http.Request) {
 
 	// 3. 如果出现错误
 	if err != nil {
-		if err == gorm.ErrRecordNotFound {
-			// 3.1 数据未找到
-			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprint(w, "404 文章未找到")
-		} else {
-			// 3.2 数据库错误
-			logger.LogError(err)
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprint(w, "500 服务器内部错误")
-		}
+		ac.ResponseForSQLError(w, err)
 	} else {
 		// 检查权限
 		if !policies.CanModifyArticle(_article) {
-			flash.Warning("未授权操作!")
-			http.Redirect(w, r, route.Name2URL("articles.index"), http.StatusFound)
+			ac.ResponseForUnauthorized(w, r)
 		} else {
 			// 4. 未出现错误，执行删除操作
 			rowsAffected, err := _article.Delete()
