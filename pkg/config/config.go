@@ -82,3 +82,8 @@ func GetUint(path string, defaultValue ...interface{}) uint {
 func GetBool(path string, defaultValue ...interface{}) bool {
 	return cast.ToBool(Get(path, defaultValue...))
 }
+
+// GetFloat64 获取 Float64 类型的配置信息
+func GetFloat64(path string, defaultValue ...interface{}) float64 {
+	return cast.ToFloat64(Get(path, defaultValue...))
+}

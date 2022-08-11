@@ -6,8 +6,10 @@ import (
 	"go-tanxi/app/models/user"
 	"go-tanxi/app/requests"
 	"go-tanxi/pkg/auth"
+	"go-tanxi/pkg/captcha"
 	"go-tanxi/pkg/flash"
 	"go-tanxi/pkg/route"
+	"go-tanxi/pkg/session"
 	"go-tanxi/pkg/view"
 	"net/http"
 )
@@ -18,6 +20,12 @@ type AuthController struct {
 
 // Register 注册页面
 func (*AuthController) Register(w http.ResponseWriter, r *http.Request) {
+	// 生成验证码
+	id, b64s, _ := captcha.NewCaptcha().GenerateCaptcha()
+	fmt.Fprintln(w, b64s)
+	fmt.Fprintln(w)
+	fmt.Fprintln(w, session.Get("GoTanxi:captcha:"+id))
+
 	view.Render(w, view.D{}, "auth.register")
 }
 

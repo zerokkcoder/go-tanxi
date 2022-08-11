@@ -15,6 +15,6 @@
 - [thedevsaddam/govalidator](https://github.com/thedevsaddam/govalidator)
 - [crypto/bcrypt](https://godoc.org/golang.org/x/crypto/bcrypt)
 - [spf13/viper](https://github.com/spf13/viper)
-- [dchest/captcha](https://github.com/dchest/captcha)
+- [mojocn/base64Captcha](https://github.com/mojocn/base64Captcha)
 ## 参考资料
 - [G01 Go实战：Web 入门](https://learnku.com/courses/go-basic/1.17)
