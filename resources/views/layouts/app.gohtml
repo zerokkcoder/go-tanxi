@@ -12,29 +12,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="{{ RouteName2URL "articles.index" }}">Hahoo 的博客</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-          class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.index" }}">首页</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "about" }}">关于</a></li>
-          {{ if .isLogined }}
-          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.create" }}">开始写作</a></li>
-          <form action="{{ RouteName2URL "auth.logout" }}" method="POST" onsubmit="return confirm('您确定要退出吗？')">
-            <button class="btn btn-light btn-sm" type="submit" name="button">退出</button>
-          </form>
-          {{ else }}
-          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.register" }}">注册</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.login" }}">登录</a></li>
-          {{ end }}
-        </ul>
-      </div>
-    </div>
-  </nav>
+  {{template "header" .}}
+  
   <div class="container-sm">
     <div class="row mt-4">
       {{template "messages" .}}
@@ -45,11 +24,8 @@
     </div>
   </div>
 
-  <footer class=" bg-primary text-white-50 text-center mt-5 p-3">
-    &copy; 2022 Hahoo - <a href="https://github.com/yellowStarts" class="text-white-50">GitHub</a> | <a
-      href="{{ RouteName2URL "home" }}" class="text-white-50">主页</a> | <a href="{{ RouteName2URL "articles.index" }}"
-      class="text-white-50">博客主页</a>
-  </footer>
+  {{template "footer" .}}
+
   <script src="/js/bootstrap.min.js"></script>
 </body>
 

@@ -4,6 +4,7 @@ import (
 	"go-tanxi/pkg/config"
 	"go-tanxi/pkg/logger"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
@@ -24,6 +25,11 @@ func Name2URL(routeName string, pairs ...string) string {
 	}
 
 	return config.GetString("app.url") + url.String()
+}
+
+// RouteClass 将路由名字转换成前端类名
+func RouteClass(routeName string) string {
+	return strings.Replace(routeName, ".", "-", -1)
 }
 
 // GetRouteVariable 获取 URI 路由参数

@@ -1,0 +1,31 @@
+{{define "header"}}
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top">
+  <div class="container">
+    <a class="navbar-brand" href="{{ RouteName2URL "articles.index" }}">Hahoo 的博客</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+        class="navbar-toggler-icon"></span></button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+      <!-- Left Side Of Navbar -->
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.index" }}">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "about" }}">关于</a></li>
+      </ul>
+      <!-- Right Side Of Navbar -->
+      <ul class="navbar-nav navbar-right">
+
+        {{ if .isLogined }}
+        <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "articles.create" }}">开始写作</a></li>
+        <form action="{{ RouteName2URL "auth.logout" }}" method="POST" onsubmit="return confirm('您确定要退出吗？')">
+          <button class="btn btn-light btn-sm" type="submit" name="button">退出</button>
+        </form>
+        {{ else }}
+        <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.register" }}">注册</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ RouteName2URL "auth.login" }}">登录</a></li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</nav>
+{{end}}
