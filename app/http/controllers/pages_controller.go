@@ -16,7 +16,7 @@ func (*PagesController) Home(w http.ResponseWriter, r *http.Request) {
 
 // About 关于
 func (*PagesController) About(w http.ResponseWriter, r *http.Request) {
-	view.RenderSimple(w, view.D{}, "pages.about")
+	view.Render(w, view.D{}, "pages.about")
 }
 
 // NotFound 404 页面
