@@ -6,10 +6,8 @@ import (
 	"go-tanxi/app/models/user"
 	"go-tanxi/app/requests"
 	"go-tanxi/pkg/auth"
-	"go-tanxi/pkg/captcha"
 	"go-tanxi/pkg/flash"
 	"go-tanxi/pkg/route"
-	"go-tanxi/pkg/session"
 	"go-tanxi/pkg/view"
 	"net/http"
 )
@@ -20,12 +18,6 @@ type AuthController struct {
 
 // Register 注册页面
 func (*AuthController) Register(w http.ResponseWriter, r *http.Request) {
-	// 生成验证码
-	id, b64s, _ := captcha.NewCaptcha().GenerateCaptcha()
-	fmt.Fprintln(w, b64s)
-	fmt.Fprintln(w)
-	fmt.Fprintln(w, session.Get("GoTanxi:captcha:"+id))
-
 	view.Render(w, view.D{}, "auth.register")
 }
 
@@ -37,6 +29,8 @@ func (*AuthController) DoRegister(w http.ResponseWriter, r *http.Request) {
 		Email:           r.PostFormValue("email"),
 		Password:        r.PostFormValue("password"),
 		PasswordConfirm: r.PostFormValue("password_confirm"),
+		Captcha:         r.PostFormValue("captcha"),
+		CaptchaID:       r.PostFormValue("captcha_id"),
 	}
 
 	// 2. 表单规则
@@ -44,7 +38,7 @@ func (*AuthController) DoRegister(w http.ResponseWriter, r *http.Request) {
 
 	if len(errs) > 0 {
 		// 4.1 有错误发生，打印数据
-		view.RenderSimple(w, view.D{
+		view.Render(w, view.D{
 			"Errors": errs,
 			"User":   _user,
 		}, "auth.register")

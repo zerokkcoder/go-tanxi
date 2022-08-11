@@ -68,4 +68,21 @@ func init() {
 
 		return nil
 	})
+
+	// captcha: captcha_id
+	govalidator.AddCustomRule("captcha", func(field, rule, message string, value interface{}) error {
+		valLength := utf8.RuneCountInString(value.(string))
+		l, _ := strconv.Atoi(strings.TrimPrefix(rule, "min_cn:"))
+
+		// handle other error
+		if valLength < l {
+			if message != "" {
+				return errors.New(message)
+			}
+
+			return fmt.Errorf("长度需大于 %d 个字", l)
+		}
+
+		return nil
+	})
 }

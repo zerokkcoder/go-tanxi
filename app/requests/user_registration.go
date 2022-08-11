@@ -3,6 +3,8 @@ package requests
 import (
 	"go-tanxi/app/models/user"
 
+	"go-tanxi/pkg/captcha"
+
 	"github.com/thedevsaddam/govalidator"
 )
 
@@ -14,6 +16,7 @@ func ValidateRegistrationForm(data user.User) map[string][]string {
 		"email":            []string{"required", "min:4", "max:30", "email", "not_exists:users,email"},
 		"password":         []string{"required", "min:6"},
 		"password_confirm": []string{"required"},
+		"captcha":          []string{"required"},
 	}
 
 	// 2. 定制错误消息
@@ -36,6 +39,9 @@ func ValidateRegistrationForm(data user.User) map[string][]string {
 		"password_confirm": []string{
 			"required:确认密码框为必填项",
 		},
+		"captcha": []string{
+			"required:验证码为必填项",
+		},
 	}
 
 	// 3. 配置初始化
@@ -53,6 +59,9 @@ func ValidateRegistrationForm(data user.User) map[string][]string {
 	if data.Password != data.PasswordConfirm {
 		errs["password_confirm"] = append(errs["password_confirm"], "两次输入密码不匹配！")
 	}
-
+	// 验证验证码
+	if !captcha.NewCaptcha().VerifyCaptcha(data.CaptchaID, data.Captcha, true) {
+		errs["captcha"] = append(errs["captcha"], "请输入正确的验证码")
+	}
 	return errs
 }

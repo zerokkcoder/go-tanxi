@@ -1,0 +1,20 @@
+{{define "script"}}
+<script>
+  $(function () {
+    getCaptcha()
+
+  })
+
+  function getCaptcha() {
+    $.get('/captcha', function (data) {
+      if (data.code == 1) {
+        $('#captcha_image').attr("src", data.captcha_image)
+        $('#captcha_id').val(data.captcha_id)
+      } else {
+        new bootstrap.Alert("请求获取验证码图片异常")
+      }
+    })
+
+  }
+</script>
+{{end}}
